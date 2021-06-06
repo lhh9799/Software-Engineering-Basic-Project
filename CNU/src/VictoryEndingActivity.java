@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 
@@ -48,9 +49,14 @@ public class VictoryEndingActivity extends JPanel {
 		}
 		
 		for(int i=0; i<VictoryImagePath.length; i++) {
+			int backgroundImageWidth = win.getViewportWidth() - 10;			//실제 내용이 표시되는 영역의 너비 - 10픽셀
+			int backgroundImageHeight = win.getViewportHeight() - 10;		//실제 내용이 표시되는 영역의 높이 - 10픽셀
+			
 			VictoryImageIcon[i] = new ImageIcon(VictoryImagePath[i]);
-			VictoryImage[i] = new JLabel(VictoryImageIcon[i]);
-			VictoryImage[i].setBounds(25, 40, 600, 400);
+			Image img = VictoryImageIcon[i].getImage();
+			Image sizeChangedImage = img.getScaledInstance(backgroundImageWidth, backgroundImageHeight, Image.SCALE_SMOOTH);
+			VictoryImage[i] = new JLabel(new ImageIcon(sizeChangedImage));
+			VictoryImage[i].setBounds(5, 5, backgroundImageWidth, backgroundImageHeight);
 			VictoryImage[i].setVisible(false);	//기본적으로 안보이도록
 			VictoryImage[i].addMouseListener(new HiddenEvent());	//리스너 등록
 			add(VictoryImage[i]);

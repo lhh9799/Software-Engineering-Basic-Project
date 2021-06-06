@@ -37,11 +37,6 @@ class Enemy {
 		}
 	}
 	
-	//스킬의 가짓수를 입력해 몇 번 스킬을 사용할지 리턴
-	public int skillSelect(int number_of_skills) {
-		return (int)(Math.random()*100);
-	}
-	
 	//적이 플레이어를 공격하는 함수
 	public String attack(Player p) {
 		int random = (int)(Math.random()*99 + 1);							//1부터 100까지의 랜덤한 숫자를 뽑음
@@ -58,7 +53,7 @@ class Enemy {
 	}
 }
 
-//과제 클래스. 스킬이 없으므로 attack을 Override 하지 않음
+//과제 클래스
 class Assignment extends Enemy {
 	//기본 생성자(과제 클래스의 인스턴스의 이름, 체력, 이미지 경로를 초기화)
 	public Assignment() {
@@ -78,7 +73,7 @@ class Quiz extends Enemy {
 	public Quiz() {
 		this.name = "퀴즈";
 		this.hp = 20;
-		this.imgPath = "newImg/quiz.png";
+		this.imgPath = "newImg/quiz_trans.png";
 		
 		//스킬 추가
 		skillSet.add(new Skill("빈칸에 들어갈 값은?", 3, 5, "80%"));
@@ -96,6 +91,6 @@ class Exam extends Enemy {
 		
 		//스킬 추가
 		skillSet.add(new Skill("위 설명에 대한 값은?", 5, 10, "70%"));
-		skillSet.add(new Skill("위 코드의 문제점을 보고 이를 옳게 바꿔 구현하시오.", 10, 15, "30%"));
+		skillSet.add(new Skill("위 코드의 문제점을 옳게 바꿔 구현하시오.", 10, 15, "30%"));
 	}
 }

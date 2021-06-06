@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
@@ -25,9 +26,14 @@ public class DefeatEndingActivity extends JPanel {
 		setBackground(new Color(183, 215, 216));
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK, 5), ""));
 		
+		int backgroundImageWidth = win.getViewportWidth() - 10;			//실제 내용이 표시되는 영역의 너비 - 10픽셀
+		int backgroundImageHeight = win.getViewportHeight() - 10;		//실제 내용이 표시되는 영역의 높이 - 10픽셀
+		
 		DefeatImageIcon = new ImageIcon("newImg/jaesugang.jpeg");
-		DefeatImage = new JLabel(DefeatImageIcon);
-		DefeatImage.setBounds(25, 40, 600, 400);
+		Image img = DefeatImageIcon.getImage();
+		Image sizeChangedImage = img.getScaledInstance(backgroundImageWidth, backgroundImageHeight, Image.SCALE_SMOOTH);
+		DefeatImage = new JLabel(new ImageIcon(sizeChangedImage));
+		DefeatImage.setBounds(5, 5, backgroundImageWidth, backgroundImageHeight);
 		add(DefeatImage);
 		
 //		init();	//삭제해야함!

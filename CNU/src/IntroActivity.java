@@ -3,6 +3,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.*;
 import javax.swing.*;
@@ -14,77 +15,59 @@ public class IntroActivity extends JPanel {
 	private JLabel UsernameLabel;			//닉네임 입력을 요청하는 레이블
 	private JTextField UsernameField;		//닉네임을 입력할 텍스트필드
 	private String Username;				//닉네임을 저장하는 문자열 변수
-	private ImageIcon backgroundImageIcon;	//배경 이미지 아이콘
-	private JLabel backgroundImage;			//배경 이미지 레이블
+	private Image sizeChangedImage;			//실제 JPanel의 크기에 맞게 크기가 변경될 이미지
+	private JLabel backgroundImageLabel;	//배경 이미지 레이블
+	private ImageIcon backgroundImageIcon = new ImageIcon("newImg/CNU_Background.jpg");	//배경 이미지 아이콘
 	
 	public IntroActivity(MyJPanel win) {
-		setLayout(null);				//배치관리자를 null로 지정(모든 컴포넌트의 위치를 직접 지정)
-		setBackground(new Color(183, 215, 216));
-		setBorder(new TitledBorder(new LineBorder(Color.BLACK, 5), ""));
-		
-		//닉네임 요청 레이블
-		UsernameLabel = new JLabel("닉네임을 입력하세요");
-		UsernameLabel.setBorder(new LineBorder(Color.LIGHT_GRAY, 3));
-		UsernameLabel.setFont(new Font("맑은 고딕", Font.BOLD, 10));
-		UsernameLabel.setBounds(300, 50, 100, 80);
-		add(UsernameLabel);
-		
+		setLayout(null);					//배치관리자를 null로 지정(모든 컴포넌트의 위치를 직접 지정)		
+				
 		//다음 액티비티로 전환가능하도록 하는 액션리스너
 		class ConfirmListener implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Username = UsernameField.getText();					//레이블에서 텍스트를 가져와 사용자이름 변수에 저장
-				if(Username.equals("")) {							//사용자가 닉네임을 입력하지 않았다면
+				//사용자가 닉네임을 입력하지 않았거나 공백이라면
+				if(Username.equals("") || Username.equals("닉네임을 입력하세요")) {
 					Username = "봉비";								//"봉비"로 설정
 				}
 				win.gameActivity.updatePlayerNameLabel(Username);	//player 인스턴스와 레이블을 사용자의 닉네임으로 변경
-				win.change("gameActivity");		//GameActivity로 전환
+				win.change("gameActivity");							//GameActivity로 전환
 			}
 		}
 		
 		//닉네임 텍스트필드
 		UsernameField = new JTextField();
-		UsernameField.setBounds(290, 200, 116, 21);
-		UsernameField.setColumns(12);							//텍스트필드의 크기 설정(12자)
+		UsernameField.setBounds(200, 240, 116, 21);
+		UsernameField.setColumns(12);								//텍스트필드의 크기 설정(12자)
+		UsernameField.setText("닉네임을 입력하세요");
+		UsernameField.setFont(new Font("나눔고딕", Font.BOLD, 12));
 		add(UsernameField);
 		//엔터를 입력해도 다음으로 진행할 수 있도록 텍스트필드에 리스너 등록
-		UsernameField.addActionListener(new ConfirmListener());	//엔터를 누르면 다음 액티비티로 전환 가능하도록
-		//닉네임 텍스트필드로 포커싱
-		UsernameField.requestFocus();
-		win.addWindowListener(new WindowAdapter() { 
-			public void windowOpened(WindowEvent e) { 
-				UsernameField.requestFocus(); 
-			} 
+		UsernameField.addActionListener(new ConfirmListener());		//엔터를 누르면 다음 액티비티로 전환 가능하도록
+		//텍스트필드를 클릭하면 가이드 텍스트 삭제
+		UsernameField.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				UsernameField.setText("");	//텍스트 필드 초기화
+			}
 		});
 		
 		//플레이어 닉네임 입력 후 다음 액티비티로 넘어가기 위한 확인 버튼
 		JButton ConfirmButton = new JButton("확인");
-		ConfirmButton.setBounds(310, 300, 80, 20);
+		ConfirmButton.setBounds(220, 270, 80, 20);
 		add(ConfirmButton);
 		ConfirmButton.addActionListener(new ConfirmListener());
 		
 		//배경 이미지
-//		backgroundImage.setBounds(20, 20, 20, 20);
-//		backgroundImage.setBounds(20, 20, backgroundImage.getWidth(), backgroundImage.getHeight());
-//		ImageIcon backgroundImageIcon = new ImageIcon("newImg/CNU_Background.jpg");
-		
-//		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-//		double width = screenSize.getWidth();
-//		double height = screenSize.getHeight();
-		
-//		Dimension dim = win.getSize();
-//		int height = dim.height;
-//		double width = dim.getWidth();
-//		System.out.println("width: " + width + " height: " + height);
-//		System.out.println("height: " + height);
-		
-//		backgroundImage.setSize(WIDTH, HEIGHT);
-//		backgroundImage = new JLabel(backgroundImageIcon);		//배경 이미지 레이블
-//		ImageIcon sizeChangedImage = backgroundImageIcon.getImage();	//기존 이미지아이콘을 가져와서
-//		sizeChangedImage.getIconHeight();
-//		sizeChangedImage.getIconWidth();
-//		backgroundImage.setBounds(20, 20, backgroundImageIcon.getIconWidth(), backgroundImageIcon.getIconHeight());
-//		backgroundImage.setOpaque(false);	//불투명
-//		add(backgroundImage);
+		int backgroundImageWidth = win.getViewportWidth();			//실제 내용이 표시되는 영역의 너비
+		int backgroundImageHeight = win.getViewportHeight();		//실제 내용이 표시되는 영역의 높이
+		Image img = backgroundImageIcon.getImage();					//기존 이미지아이콘을 가져옴
+		sizeChangedImage = img.getScaledInstance(backgroundImageWidth, backgroundImageHeight, Image.SCALE_SMOOTH);	//사이즈변경 (Image.SCALE_SMOOTH: 속도보다 이미지의 품질 우선)
+		backgroundImageIcon = new ImageIcon(sizeChangedImage);
+		backgroundImageLabel = new JLabel(backgroundImageIcon);		//배경 이미지 레이블
+		backgroundImageLabel.setBounds(0, 0, backgroundImageWidth, backgroundImageHeight);
+		backgroundImageLabel.setOpaque(false);						//불투명처리 하여 다른 컴포넌트들이 위에 보이도록 함
+		add(backgroundImageLabel);
 	}
 }
