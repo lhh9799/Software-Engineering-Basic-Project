@@ -1,29 +1,20 @@
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
-import java.io.File;
-
-//시작화면. 플레이어의 닉네임을 입력받는 액티비티
+//승리했을 때 창
 public class VictoryEndingActivity extends JPanel {
-	private String VictoryImagePath[] = {"newImg/seasonalSemester.png", "newImg/nonsan.jpg"};
-//	private String VictoryImagePath[] = {"newImg/bongbi.png", "newImg/nonsan.jpg", "newImg/seasonalSemester.png"};
-	private ImageIcon VictoryImageIcon[] = new ImageIcon[VictoryImagePath.length];
-	private JLabel VictoryImage[] = new JLabel[VictoryImagePath.length];
-	private boolean firstImage = true;
+	private ImageIcon VictoryImageIcon;
+	private JLabel VictoryImage;
 	private Music Music;
 	
 	public void init() {
 		Music = new Music("music/Overwatch_Victory_30s.mp3", false);
-		Music.start();
-		JOptionPane.showMessageDialog(null, "무야~호~ 무사히 2학년 한 학기를 완수하였다.", "그만큼 신나시는 거지~", JOptionPane.INFORMATION_MESSAGE);
+		Music.start();	//음악 시작
+		JOptionPane.showMessageDialog(null, "무사히 2학년 한 학기를 완수하였다.", "승리",  JOptionPane.INFORMATION_MESSAGE);
 	}
 	
 	public VictoryEndingActivity(MyJPanel win) {
@@ -31,38 +22,14 @@ public class VictoryEndingActivity extends JPanel {
 		setBackground(new Color(183, 215, 216));
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK, 5), ""));
 		
-		class HiddenEvent extends MouseAdapter {
-			@Override
-			public void mousePressed(MouseEvent e) {
-			//이미지 변경
-				if(firstImage) {
-					VictoryImage[0].setVisible(false);	//첫 번째 이미지 안보이도록
-					VictoryImage[1].setVisible(true);	//첫 번째 이미지 안보이도록
-					firstImage = false;
-				}
-				else {
-					VictoryImage[0].setVisible(true);	//첫 번째 이미지 안보이도록
-					VictoryImage[1].setVisible(false);	//첫 번째 이미지 안보이도록
-					firstImage = true;
-				}
-			}
-		}
+		int backgroundImageWidth = win.getViewportWidth() - 10;			//실제 내용이 표시되는 영역의 너비 - 10픽셀
+		int backgroundImageHeight = win.getViewportHeight() - 10;		//실제 내용이 표시되는 영역의 높이 - 10픽셀
 		
-		for(int i=0; i<VictoryImagePath.length; i++) {
-			int backgroundImageWidth = win.getViewportWidth() - 10;			//실제 내용이 표시되는 영역의 너비 - 10픽셀
-			int backgroundImageHeight = win.getViewportHeight() - 10;		//실제 내용이 표시되는 영역의 높이 - 10픽셀
-			
-			VictoryImageIcon[i] = new ImageIcon(VictoryImagePath[i]);
-			Image img = VictoryImageIcon[i].getImage();
-			Image sizeChangedImage = img.getScaledInstance(backgroundImageWidth, backgroundImageHeight, Image.SCALE_SMOOTH);
-			VictoryImage[i] = new JLabel(new ImageIcon(sizeChangedImage));
-			VictoryImage[i].setBounds(5, 5, backgroundImageWidth, backgroundImageHeight);
-			VictoryImage[i].setVisible(false);	//기본적으로 안보이도록
-			VictoryImage[i].addMouseListener(new HiddenEvent());	//리스너 등록
-			add(VictoryImage[i]);
-		}
-		VictoryImage[0].setVisible(true);	//첫 번째 이미지만 보임
-		
-//		init();	//지워야함!
+		VictoryImageIcon = new ImageIcon("newImg/jongkang2.png");
+		Image img = VictoryImageIcon.getImage();
+		Image sizeChangedImage = img.getScaledInstance(backgroundImageWidth, backgroundImageHeight, Image.SCALE_SMOOTH);
+		VictoryImage = new JLabel(new ImageIcon(sizeChangedImage));
+		VictoryImage.setBounds(5, 5, backgroundImageWidth, backgroundImageHeight);
+		add(VictoryImage);
 	}
 }

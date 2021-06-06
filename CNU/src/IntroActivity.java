@@ -1,18 +1,11 @@
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.border.LineBorder;
-import javax.swing.border.TitledBorder;
 
 //시작화면. 플레이어의 닉네임을 입력받는 액티비티
 public class IntroActivity extends JPanel {
-	private JLabel UsernameLabel;			//닉네임 입력을 요청하는 레이블
 	private JTextField UsernameField;		//닉네임을 입력할 텍스트필드
 	private String Username;				//닉네임을 저장하는 문자열 변수
 	private Image sizeChangedImage;			//실제 JPanel의 크기에 맞게 크기가 변경될 이미지
@@ -56,8 +49,9 @@ public class IntroActivity extends JPanel {
 		//플레이어 닉네임 입력 후 다음 액티비티로 넘어가기 위한 확인 버튼
 		JButton ConfirmButton = new JButton("확인");
 		ConfirmButton.setBounds(220, 270, 80, 20);
-		add(ConfirmButton);
+		ConfirmButton.setBackground(Color.WHITE);		//버튼에 색 설정
 		ConfirmButton.addActionListener(new ConfirmListener());
+		add(ConfirmButton);
 		
 		//배경 이미지
 		int backgroundImageWidth = win.getViewportWidth();			//실제 내용이 표시되는 영역의 너비

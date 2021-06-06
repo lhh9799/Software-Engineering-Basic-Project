@@ -32,7 +32,6 @@ class Enemy {
 		if(this.hp > 0)		//호출한 인스턴스의 멤버변수 hp가 0 이상이라면
 			return true;	//true 리턴
 		else {				//아니라면
-			System.out.println("적이 사망했습니다!");	//콘솔에 사망 메시지 출력
 			return false;	//false 리턴
 		}
 	}
@@ -91,6 +90,6 @@ class Exam extends Enemy {
 		
 		//스킬 추가
 		skillSet.add(new Skill("위 설명에 대한 값은?", 5, 10, "70%"));
-		skillSet.add(new Skill("위 코드의 문제점을 옳게 바꿔 구현하시오.", 10, 15, "30%"));
+		skillSet.add(new Skill("위 코드를 옳게 바꿔 구현하시오.", 10, 15, "30%"));
 	}
 }

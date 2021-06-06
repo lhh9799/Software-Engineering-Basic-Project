@@ -1,15 +1,10 @@
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Image;
-import java.awt.event.*;
-import java.awt.image.BufferedImage;
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
-import java.io.File;
 
-//시작화면. 플레이어의 닉네임을 입력받는 액티비티
+//패배했을 때 창
 public class DefeatEndingActivity extends JPanel {
 	private ImageIcon DefeatImageIcon;
 	private JLabel DefeatImage;
@@ -18,7 +13,7 @@ public class DefeatEndingActivity extends JPanel {
 	public void init() {
 		Music = new Music("music/Overwatch_Defeat_30s.mp3", false);
 		Music.start();	//음악 시작
-		JOptionPane.showMessageDialog(null, "학사경고 메일이 도착하였습니다.", "내가 학고라니!", JOptionPane.INFORMATION_MESSAGE);	//다이얼로그
+		JOptionPane.showMessageDialog(null, "학사경고를 받았습니다!", "패배", JOptionPane.INFORMATION_MESSAGE);	//다이얼로그
 	}
 	
 	public DefeatEndingActivity(MyJPanel win) {
@@ -35,7 +30,5 @@ public class DefeatEndingActivity extends JPanel {
 		DefeatImage = new JLabel(new ImageIcon(sizeChangedImage));
 		DefeatImage.setBounds(5, 5, backgroundImageWidth, backgroundImageHeight);
 		add(DefeatImage);
-		
-//		init();	//삭제해야함!
 	}
 }

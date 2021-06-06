@@ -1,15 +1,4 @@
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.awt.image.FilteredImageSource;
-import java.awt.image.ImageFilter;
-import java.awt.image.ImageProducer;
-import java.util.HashMap;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.Vector;
-
-import javax.swing.GrayFilter;
-import javax.swing.ImageIcon;
 
 class Player {
 	String name = "봉비";						//플레이어 이름 변수
