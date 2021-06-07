@@ -42,7 +42,9 @@ public class IntroActivity extends JPanel {
 		UsernameField.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				UsernameField.setText("");	//텍스트 필드 초기화
+				if(UsernameField.getText().equals("닉네임을 입력하세요")) {
+					UsernameField.setText("");	//텍스트 필드 초기화
+				}
 			}
 		});
 		
