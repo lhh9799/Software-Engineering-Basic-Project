@@ -11,9 +11,9 @@ public class DefeatEndingActivity extends JPanel {
 	private Music Music;
 	
 	public void init() {
+		JOptionPane.showMessageDialog(null, "학사경고를 받았습니다!", "패배", JOptionPane.INFORMATION_MESSAGE);	//다이얼로그
 		Music = new Music("music/Overwatch_Defeat_30s.mp3", false);
 		Music.start();	//음악 시작
-		JOptionPane.showMessageDialog(null, "학사경고를 받았습니다!", "패배", JOptionPane.INFORMATION_MESSAGE);	//다이얼로그
 	}
 	
 	public DefeatEndingActivity(MyJPanel win) {

@@ -12,9 +12,9 @@ public class VictoryEndingActivity extends JPanel {
 	private Music Music;
 	
 	public void init() {
+		JOptionPane.showMessageDialog(null, "무사히 2학년 한 학기를 완수하였다.", "승리",  JOptionPane.INFORMATION_MESSAGE);
 		Music = new Music("music/Overwatch_Victory_30s.mp3", false);
 		Music.start();	//음악 시작
-		JOptionPane.showMessageDialog(null, "무사히 2학년 한 학기를 완수하였다.", "승리",  JOptionPane.INFORMATION_MESSAGE);
 	}
 	
 	public VictoryEndingActivity(MyJPanel win) {
